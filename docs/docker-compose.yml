@@ -1,13 +1,13 @@
 version: "4.0"
 services:
   rstudio:
-    image: "$FLEX_IMAGE" 
+    image: "dar4datascience/shiny-dockers:dev.0.0.0.1000" 
     ports:
       - "8787:8787"
     volumes:
       - type: "bind"
-        source: "$TUTORIAL_WORKING_DIR"
+        source: "/home/duque/Documents/deploy-flex-actions"
         target: "/home/rstudio"
       - type: "bind"
-        source: "$RSTUDIO_CONFIG_PATH"
+        source: "/home/duque/.config/rstudio"
         target: "/home/rstudio/.config/rstudio"

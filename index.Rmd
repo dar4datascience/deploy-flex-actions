@@ -1,24 +1,17 @@
 ---
 title: "COVID-19 Tracker"
-output: 
+output:
   flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
     theme:
-      version: 5
-      fg: "purple"
-      bg: "black"
-      bootswatch: cyborg
+      version: 4
+      bg: "#101010"
+      fg: "#FDF7F7" 
+      primary: "#ED79F9"
+      navbar-bg: "purple"
       base_font: 
-        google: 
-          # arguments to sass::font_google() 
-          family: Atkinson Hyperlegible
-          local: false
+        google: Atkinson Hyperlegible
       heading_font:
-        google: 
-          # arguments to sass::font_google() 
-          family: Atkinson Hyperlegible
-          local: false
+        google: Atkinson Hyperlegible
       code_font:
         google: 
           # arguments to sass::font_google() 
@@ -26,9 +19,11 @@ output:
           local: false
 ---
 
+
 ```{r setup, include=FALSE}
 # Dependencies 
 library(flexdashboard)
+#Atkinson Hyperlegible
 
 source("./dev/functions.R")
 # Setting the data requirements 
