@@ -7,11 +7,11 @@ jobs:
   refresh-the-dashboard:
     runs-on: ubuntu-20.04 
     container: 
-      image: rkrispin/flex_dash_env:dev.0.0.0.9000
+      image: dar4datascience/shiny-dockers:dev.0.0.0.1000
     steps:
     - name: checkout_repo
       uses: actions/checkout@v2
       with: 
         ref: 'main'
     - name: Render Rmarkdown
-      run: bash ./bash/render_dashboard.sh "RamiKrispin" "ramkrisp@umich.edu"
+      run: bash ./bash/render_dashboard.sh "Daniel Amieva" "danielamieva@dar4datascience.com"

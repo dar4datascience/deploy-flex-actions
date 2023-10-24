@@ -123,7 +123,7 @@ For better security, log in with a limited-privilege personal access token. Lear
 ### Setting environment variables
  
 It is a good practice to use in a project like this environment variables. It will enable us to seamlessly adjust the project to the user setting (e.g., user local folders and RStudio settings) without changing the project core code. We will use in this tutorial the following environment variables:
-- `FLEX_IMAGE` - The development image name, if you are using the tutorial image it should be set as `rkrispin/flex_dash_env:dev.0.0.0.9000`. Otherwise, set it to the one you plan to use
+- `FLEX_IMAGE` - The development image name, if you are using the tutorial image it should be set as `dar4datascience/shiny-dockers:dev.0.0.0.1000`. Otherwise, set it to the one you plan to use
 - `TUTORIAL_WORKING_DIR` - The path for the tutorial folder (e.g., the cloned repository). This variable will be used to bind your Docker container with your local machine. This will be mainly relevant if you are using the RStudio server as your working IDE
 - `RSTUDIO_CONFIG_PATH` - The path for the local RStudio config folder. Typically it would be your home directory + `.config/rstudio`. This variable will be used to mirror your local RStudio settings (color theme, code snippets, panel settings, etc.) to the Rstudio server on the container.
 
@@ -434,17 +434,17 @@ docker build . --progress=plain \
                --build-arg QUARTO_VERSION=1.1.149 \
                --build-arg CONDA_ENV=flex_dashboard \
                --build-arg PYTHON_VER=3.8 \
-               -t rkrispin/flex_dash_env:dev.0.0.0.9000
+               -t dar4datascience/shiny-dockers:dev.0.0.0.1000
 
 if [[ $? = 0 ]] ; then
 echo "Pushing docker..."
-docker push rkrispin/flex_dash_env:dev.0.0.0.9000
+docker push dar4datascience/shiny-dockers:dev.0.0.0.1000
 else
 echo "Docker build failed"
 fi
 ```
 
-This `bash` script simply builds the docker and tags it as `rkrispin/flex_dash_env:dev.0.0.0.9000`, and then, if the build was successful, push it to Docker Hub. As you can see on the `docker build` command, we are using the `--build-arg` argument to define the `Dockerfile` arguments. To execute this script from the command line:
+This `bash` script simply builds the docker and tags it as `dar4datascience/shiny-dockers:dev.0.0.0.1000`, and then, if the build was successful, push it to Docker Hub. As you can see on the `docker build` command, we are using the `--build-arg` argument to define the `Dockerfile` arguments. To execute this script from the command line:
 
 ```shell
 bash build_docker.sh
@@ -463,7 +463,7 @@ Of the two, when working with flaxdashboard, RStudio is the preferred choice. Th
 There are multiple methods to spin a docker image into a running container. Before going to the robust method using the `docker-compose`, let's review the basic method with the `run` command:
 
 ``` shell
-docker run -d -p 8787:8787 rkrispin/flex_dash_env:dev.0.0.0.9000
+docker run -d -p 8787:8787 dar4datascience/shiny-dockers:dev.0.0.0.1000
 ```
 
 The `docker run` command (or `run` in short) enables you to launch a container. In the above example, we used the following arguments:
@@ -491,7 +491,7 @@ You can use the `docker ps` command to check if the image is running:
 docker ps
 
 CONTAINER ID   IMAGE                                   COMMAND                  CREATED         STATUS         PORTS                    NAMES
-ac26ec61e71b   rkrispin/flex_dash_env:dev.0.0.0.9000   "/usr/lib/rstudio-se…"   4 minutes ago   Up 4 minutes   0.0.0.0:8787->8787/tcp   sweet_elion
+ac26ec61e71b   dar4datascience/shiny-dockers:dev.0.0.0.1000   "/usr/lib/rstudio-se…"   4 minutes ago   Up 4 minutes   0.0.0.0:8787->8787/tcp   sweet_elion
 ```
 
 Now you can go to your browser and use `http://localhost:8787` to access the Rstudio server from the browser:
@@ -510,7 +510,7 @@ docker kill ac26ec61e71b
 Let's repeat the previous command and add the `-v` argument to mount the container to your local folder:
 
 ```shell
-docker run -d -p 8787:8787 -v $TUTORIAL_WORKING_DIR:/home/rstudio/flexdash rkrispin/flex_dash_env:dev.0.0.0.9000
+docker run -d -p 8787:8787 -v $TUTORIAL_WORKING_DIR:/home/rstudio/flexdash dar4datascience/shiny-dockers:dev.0.0.0.1000
 ```
 
 You can see now, after binding the local folder to the docker with the `-v` argument, the `flexdash` folder (marked with a green rectangle on the next screenshot) is now available inside the container:
@@ -520,7 +520,7 @@ You can see now, after binding the local folder to the docker with the `-v` argu
 Note that the `$TUTORIAL_WORKING_DIR` environment variable represents the local folder path on my machine, the `/home/rstudio/` folder is the root folder on the container, and `flexdash` is the name of the mounted folder inside the container. To run it on your local machine, you should modify in the following example `YOUR_LOCAL_PATH` with your folder local path and `FOLDER_NAME` with the folder name you want to use inside the container:
 
 ``` shell
-docker run -d -p 8787:8787 -v YOUR_LOCAL_PATH:/home/rstudio/FOLDER_NAME rkrispin/flex_dash_env:dev.0.0.0.9000
+docker run -d -p 8787:8787 -v YOUR_LOCAL_PATH:/home/rstudio/FOLDER_NAME dar4datascience/shiny-dockers:dev.0.0.0.1000
 ```
 
 Does it sufficient to start developing our dashboard? Technically, yes, we can now develop and test our code inside the container and save the changes on the local folder (and commit the changes with `git`).  But before we continue, let's mount our local RStudio config file with the one on the container. This will  mirror your local RStudio setting to the RStudio server running inside the container:
@@ -529,7 +529,7 @@ Does it sufficient to start developing our dashboard? Technically, yes, we can n
 docker run -d -p 8787:8787 \
  -v YOUR_LOCAL_PATH:/home/rstudio/FOLDER_NAME \
  -v $RSTUDIO_CONFIG_PATH:/home/rstudio/.config/rstudio \
- rkrispin/flex_dash_env:dev.0.0.0.9000
+ dar4datascience/shiny-dockers:dev.0.0.0.1000
 ```
 
 Now, I have inside the container the same setting (e.g., color theme, code snippets, etc.):
@@ -542,7 +542,7 @@ As you add more elements to the `docker run`, it becomes convoluted to run it ea
 
 `docker-compose.yml`:
 ``` bash
-version: "3.9"
+version: "4.0"
 services:
   rstudio:
     image: "$FLEX_IMAGE" 
@@ -862,7 +862,7 @@ You can confirm that your container is up by using the `docker ps` command:
 docker ps
 
 CONTAINER ID   IMAGE                                   COMMAND                  CREATED         STATUS         PORTS                    NAMES
-d594356d8ccc   rkrispin/flex_dash_env:dev.0.0.0.9000   "/usr/lib/rstudio-se…"   3 minutes ago   Up 3 minutes   0.0.0.0:8787->8787/tcp   deploy-flex-actions_rstudio_1
+d594356d8ccc   dar4datascience/shiny-dockers:dev.0.0.0.1000   "/usr/lib/rstudio-se…"   3 minutes ago   Up 3 minutes   0.0.0.0:8787->8787/tcp   deploy-flex-actions_rstudio_1
 ```
 Next, let's ssh to the container and open the bash shell on the terminal using the `docker exec` command:
 
@@ -1013,7 +1013,7 @@ jobs:
   refresh-the-dashboard:
     runs-on: ubuntu-20.04  
     container: 
-      image: rkrispin/flex_dash_env:dev.0.0.0.9000
+      image: dar4datascience/shiny-dockers:dev.0.0.0.1000
     steps:
     - name: checkout_repo
       uses: actions/checkout@v2
