@@ -6,7 +6,7 @@ output:
     vertical_layout: fill
     theme:
       version: 5
-      theme: superhero
+      theme: cyborg
       base_font: 
         google: 
           # arguments to sass::font_google() 
