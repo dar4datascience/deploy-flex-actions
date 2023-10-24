@@ -6,7 +6,7 @@ output:
     vertical_layout: fill
     theme:
       version: 5
-      theme: cyborg
+      bootswatch: cyborg
       base_font: 
         google: 
           # arguments to sass::font_google() 
