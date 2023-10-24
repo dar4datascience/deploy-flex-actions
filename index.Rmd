@@ -5,11 +5,8 @@ output:
     orientation: columns
     vertical_layout: fill
     theme:
-      version: 4
-      bg: "#101010"
-      fg: "#FDF7F7" 
-      primary: "#ED79F9"
-      navbar-bg: "#3ADAC6"
+      version: 5
+      theme: superhero
       base_font: 
         google: 
           # arguments to sass::font_google() 
