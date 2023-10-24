@@ -355,7 +355,7 @@ We will define all required packages and their versions on the `packages.json` f
         },
         {
             "package": "flexdashboard",
-            "version":"0.5.2"
+            "version":"0.6.2"
         },
         {
             "package": "dplyr",
