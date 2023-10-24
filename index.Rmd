@@ -30,6 +30,7 @@ output:
 ```{r setup, include=FALSE}
 # Dependencies 
 library(flexdashboard)
+library(bslib)
 
 source("./dev/functions.R")
 # Setting the data requirements 
@@ -105,7 +106,9 @@ document.querySelector(".navbar-header > span.navbar-brand > span.navbar-author"
 ### Daily New Confirmed Cases - Worldwide
 
 ```{r}
-highcharter::hchart(df3, "scatter", highcharter::hcaes(x = date, 
+card(
+  full_screen = TRUE,
+  highcharter::hchart(df3, "scatter", highcharter::hcaes(x = date, 
                                                        y = cases_new),
                     name = "Daily New Cases",
                     color = "rgba(69, 123, 157, 0.5)",
@@ -162,12 +165,16 @@ highcharter::hchart(df3, "scatter", highcharter::hcaes(x = date,
     shared = TRUE, 
     borderWidth = 5
     ) 
+)
+
 ```
 
 ### Daily Death Cases - Worldwide
 
 ```{r}
-highcharter::hchart(df3, "scatter", highcharter::hcaes(x = date, 
+card(
+  full_screen = TRUE,
+  highcharter::hchart(df3, "scatter", highcharter::hcaes(x = date, 
                                                        y = deaths_new),
                     name = "Daily Death Cases",
                     color = "rgba(214, 40, 40, 0.5)",
@@ -228,6 +235,8 @@ highcharter::hchart(df3, "scatter", highcharter::hcaes(x = date,
     text = "Trend line calculated by using 7-days moving average <br>Source: Center for Systems Science and Engineering (CSSE) at Johns Hopkins University", 
     useHTML = TRUE
     ) 
+)
+
 ```
 
 ## Column {data-width="400"}
@@ -271,7 +280,11 @@ pb |>
       )
     )
   ) 
-pb
+
+card(
+  full_screen = TRUE,
+  pb
+)
 ```
 
 # About
@@ -296,7 +309,3 @@ The dashboard uses the following packages:
 **License**
 
 This tutorial is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/) License.
-
-**Connect**
-
-For any question or feedback, you can either open an [issue](https://github.com/RamiKrispin/deploy-flex-actions/issues) or contact me on [Twitter](https://twitter.com/Rami_Krispin).
