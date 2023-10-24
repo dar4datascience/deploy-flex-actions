@@ -14,4 +14,4 @@ jobs:
       with: 
         ref: 'main'
     - name: Render Rmarkdown
-      run: bash ./bash/render_dashboard.sh "Daniel Amieva" "danielamieva@dar4datascience.com"
+      run: bash ./bash/render_dashboard.sh "dar4datascience" "danielamieva@dar4datascience.com"

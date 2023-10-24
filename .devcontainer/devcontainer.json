@@ -1,6 +1,6 @@
 {
     "name": "flexdashboard-development",
-    "image": "${localEnv:FLEX_IMAGE}",
+    "image": "dar4datascience/shiny-dockers:dev.0.0.0.1000",
     "customizations": {
         "vscode": {
             "settings": {
@@ -22,7 +22,7 @@
         }
     },
     "mounts": [        
-        "source=${localEnv:TUTORIAL_WORKING_DIR},target=/home/,type=bind,consistency=cache"],
+        "source=/home/duque/Documents/deploy-flex-actions/,target=/home/,type=bind,consistency=cache"],
     "remoteEnv": {
         "VAR1": "TEST1",
         "VAR2": "TEST2"
